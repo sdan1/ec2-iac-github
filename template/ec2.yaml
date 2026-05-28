@@ -24,7 +24,7 @@ Resources:
         - !Ref ServerSecurityGroupClase
       Tags:
         - Key: Name
-          Value: EC2-Clase-CF
+          Value: EC2-Sdan1-CF
         - Key: Proyecto
           Value: Class-CloudFormation
       UserData:
