@@ -14,12 +14,29 @@ Parameters:
 
 Resources:
 
+  ServerSecurityGroupClase:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: !Ref SecurityGroupDescription
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: SG-HTTP-Clase-CF
+
   MyEc2Github:
     Type: AWS::EC2::Instance
     Properties:
       AvailabilityZone: us-east-1a
-      ImageId: ami-0c101f26f147fa7fd
-      InstanceType: t3.micro
+      ImageId: ami-0440d3b780d96b29d
+      InstanceType: t2.micro
       SecurityGroups:
         - !Ref ServerSecurityGroupClase
       Tags:
@@ -39,20 +56,10 @@ Resources:
           <h2>Hola desde CloudFormation con GitHub 🚀</h2>
           </body></html>" > /var/www/html/index.html
 
-  ServerSecurityGroupClase:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: !Ref SecurityGroupDescription
-      Tags:
-        - Key: Name
-          Value: SG-HTTP-Clase-CF
-      SecurityGroupIngress:
-        - IpProtocol: tcp
-          FromPort: 80
-          ToPort: 80
-          CidrIp: 0.0.0.0/0
-
 Outputs:
 
   InstanceId:
     Value: !Ref MyEc2Github
+
+  PublicIP:
+    Value: !GetAtt MyEc2Github.PublicIp
