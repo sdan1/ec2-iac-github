@@ -1,16 +1,12 @@
-//name: Deploy EC2
+name: Deploy EC2
 
 on:
   workflow_dispatch:
 
 jobs:
-
   deploy:
-
     runs-on: ubuntu-latest
-
     steps:
-
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -24,5 +20,6 @@ jobs:
       - name: Deploy CloudFormation Stack
         run: |
           aws cloudformation deploy \
-          --template-file template/ec2.yaml \
-          --stack-name ec2-stack-clase          
+            --template-file template/ec2.yaml \
+            --stack-name ec2-stack-clase \
+            --capabilities CAPABILITY_NAMED_IAM CAPABILITY_AUTO_EXPAND
